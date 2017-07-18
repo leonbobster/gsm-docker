@@ -10,6 +10,7 @@ services:
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${MY_IP}
+  
   api:
     image: leonbobster/php70-apache
     ports:
@@ -20,6 +21,7 @@ services:
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${MY_IP}  
+  
   pdfgen:
     image: leonbobster/php70-apache
     ports:
@@ -29,7 +31,17 @@ services:
       - /Users/leonidbobylev/Documents/www/SD_PdfGenerate:/var/www/html
     env_file: .env
     environment:
-      XDEBUG_CONFIG: remote_host=${MY_IP} 
+      XDEBUG_CONFIG: remote_host=${MY_IP}
+  
+  cp:
+    image: leonbobster/php56-apache
+    ports:
+      - "8888:80"
+    env_file: .env
+    volumes:
+      - /Users/leonidbobylev/Documents/www/CompliancePlus:/var/www/html
+    environment:
+      XDEBUG_CONFIG: remote_host=${MY_IP}
 
   publisher_db:
     image: mysql:5.7
