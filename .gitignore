@@ -1,0 +1,6 @@
+.DS_Store
+db/cp/data/
+db/publisher/data/
+*.swp
+docker-compose.yml
+.env
