@@ -4,3 +4,4 @@ db/publisher/data/
 *.swp
 docker-compose.yml
 .env
+proxy/nginx.conf
