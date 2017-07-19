@@ -1,6 +1,15 @@
 version: '2'
 services:
 
+  proxy:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - publisher
+
   publisher:
     image: leonbobster/php70-apache
     ports:
