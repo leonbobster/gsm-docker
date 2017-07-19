@@ -6,11 +6,20 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - /Users/leonidbobylev/Documents/www/SD_AdminPanel:/var/www/html
+      - ${PUBLISHER_PATH}:/var/www/html
     env_file: .env
     environment:
-      XDEBUG_CONFIG: remote_host=${MY_IP}
+      XDEBUG_CONFIG: remote_host=${HOST_IP}
   
+  publisher_test:
+    image: leonbobster/php70-apache
+    ports:
+      - "8081:80"
+    volumes:
+      - ${PUBLISHER_PATH}:/var/www/html
+      - ./test-host:/etc/apache2/sites-enabled
+    env_file: .env
+
   api:
     image: leonbobster/php70-apache
     ports:
@@ -20,8 +29,8 @@ services:
       - /Users/leonidbobylev/Documents/www/SDSDetailWebAPI:/var/www/html
     env_file: .env
     environment:
-      XDEBUG_CONFIG: remote_host=${MY_IP}  
-  
+      XDEBUG_CONFIG: remote_host=${HOST_IP}  
+
   pdfgen:
     image: leonbobster/php70-apache
     ports:
@@ -31,17 +40,18 @@ services:
       - /Users/leonidbobylev/Documents/www/SD_PdfGenerate:/var/www/html
     env_file: .env
     environment:
-      XDEBUG_CONFIG: remote_host=${MY_IP}
-  
+      XDEBUG_CONFIG: remote_host=${HOST_IP} 
+
   cp:
     image: leonbobster/php56-apache
     ports:
       - "8888:80"
+      - "9003:9000"
     env_file: .env
     volumes:
       - /Users/leonidbobylev/Documents/www/CompliancePlus:/var/www/html
     environment:
-      XDEBUG_CONFIG: remote_host=${MY_IP}
+      XDEBUG_CONFIG: remote_host=${HOST_IP}
 
   publisher_db:
     image: mysql:5.7
@@ -65,4 +75,16 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1
-      MYSQL_DATABASE: cp
+      MYSQL_DATABASE: cp_db
+
+  phantomjs:
+    image: wernight/phantomjs:2
+    ports:
+      - "4444:4444"
+    links:
+      - publisher_test
+    entrypoint: phantomjs
+    command: --webdriver=4444 --ignore-ssl-errors=true --load-images=false --cookies-file=/tmp/cookies
+    #environment:
+    #  QT_QPA_PLATFORM: offscreen
+
