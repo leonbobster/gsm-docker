@@ -10,25 +10,28 @@ services:
     volumes:
       - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
       #- ./proxy/hosts:/etc/nginx/sites-enabled
+    container_name: proxy
 
   publisher:
     image: leonbobster/php70-apache
     ports:
       - "8080:80"
     volumes:
-      - ${PUBLISHER_PATH}:/var/www/html
+      - ${WEB_ROOT}/SD_AdminPanel:/var/www/html
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
-  
+    container_name: publisher
+
   publisher_test:
     image: leonbobster/php70-apache
     ports:
       - "8081:80"
     volumes:
-      - ${PUBLISHER_PATH}:/var/www/html
+      - ${WEB_ROOT}/SD_AdminPanel:/var/www/html
       - ./test-host:/etc/apache2/sites-enabled
     env_file: .env
+    container_name: publisher_test
 
   api:
     image: leonbobster/php70-apache
@@ -36,10 +39,11 @@ services:
       - "8088:80"
       - "9001:9000"
     volumes:
-      - /Users/leonidbobylev/Documents/www/SDSDetailWebAPI:/var/www/html
+      - ${WEB_ROOT}/SDSDetailWebAPI:/var/www/html
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}  
+    container_name: api
 
   pdfgen:
     image: leonbobster/php70-apache
@@ -47,10 +51,11 @@ services:
       - "8880:80"
       - "9002:9000"
     volumes:
-      - /Users/leonidbobylev/Documents/www/SD_PdfGenerate:/var/www/html
+      - ${WEB_ROOT}/SD_PdfGenerate:/var/www/html
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP} 
+    container_name: pdfgen
 
   cp:
     image: leonbobster/php56-apache
@@ -59,9 +64,10 @@ services:
       - "9003:9000"
     env_file: .env
     volumes:
-      - /Users/leonidbobylev/Documents/www/CompliancePlus:/var/www/html
+      - ${WEB_ROOT}/CompliancePlus:/var/www/html
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
+    container_name: cp
 
   publisher_db:
     image: mysql:5.7
@@ -75,7 +81,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1
       MYSQL_DATABASE: publisher
-  
+    container_name: publisher_db
+
   cp_db:
     image: mysql:5.7
     ports:
@@ -87,6 +94,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1
       MYSQL_DATABASE: cp_db
+    container_name: cp_db
 
   phantomjs:
     image: wernight/phantomjs:2
@@ -96,6 +104,7 @@ services:
       - publisher_test
     entrypoint: phantomjs
     command: --webdriver=4444 --ignore-ssl-errors=true --load-images=false --cookies-file=/tmp/cookies
+    container_name: phantomjs
     #environment:
     #  QT_QPA_PLATFORM: offscreen
 
