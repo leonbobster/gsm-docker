@@ -18,6 +18,7 @@ services:
       - "8080:80"
     volumes:
       - ${WEB_ROOT}/SD_AdminPanel:/var/www/html
+      - ./dev-host:/etc/apache2/sites-enabled
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
@@ -40,6 +41,7 @@ services:
       - "9001:9000"
     volumes:
       - ${WEB_ROOT}/SDSDetailWebAPI:/var/www/html
+      - ./dev-host:/etc/apache2/sites-enabled
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}  
@@ -52,6 +54,7 @@ services:
       - "9002:9000"
     volumes:
       - ${WEB_ROOT}/SD_PdfGenerate:/var/www/html
+      - ./dev-host:/etc/apache2/sites-enabled
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP} 
@@ -65,6 +68,7 @@ services:
     env_file: .env
     volumes:
       - ${WEB_ROOT}/CompliancePlus:/var/www/html
+      - ./dev-host:/etc/apache2/sites-enabled
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
     container_name: cp
