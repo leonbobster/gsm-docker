@@ -10,7 +10,7 @@ services:
     volumes:
       - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
       #- ./proxy/hosts:/etc/nginx/sites-enabled
-    container_name: proxy
+    container_name: gsm_proxy
 
   publisher:
     image: leonbobster/php70-apache
@@ -22,7 +22,7 @@ services:
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
-    container_name: publisher
+    container_name: gsm_publisher
 
   publisher_test:
     image: leonbobster/php70-apache
@@ -32,7 +32,7 @@ services:
       - ${WEB_ROOT}/SD_AdminPanel:/var/www/html
       - ./test-host:/etc/apache2/sites-enabled
     env_file: .env
-    container_name: publisher_test
+    container_name: gsm_publisher_test
 
   api:
     image: leonbobster/php70-apache
@@ -45,7 +45,7 @@ services:
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}  
-    container_name: api
+    container_name: gsm_api
 
   pdfgen:
     image: leonbobster/php70-apache
@@ -58,7 +58,7 @@ services:
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP} 
-    container_name: pdfgen
+    container_name: gsm_pdfgen
 
   cp:
     image: leonbobster/php56-apache
@@ -71,7 +71,7 @@ services:
       - ./dev-host:/etc/apache2/sites-enabled
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
-    container_name: cp
+    container_name: gsm_cp
 
   publisher_db:
     image: mysql:5.7
@@ -85,7 +85,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1
       MYSQL_DATABASE: publisher
-    container_name: publisher_db
+    container_name: gsm_publisher_db
 
   cp_db:
     image: mysql:5.7
@@ -98,7 +98,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1
       MYSQL_DATABASE: cp_db
-    container_name: cp_db
+    container_name: gsm_cp_db
 
   phantomjs:
     image: wernight/phantomjs:2
@@ -108,7 +108,7 @@ services:
       - publisher_test
     entrypoint: phantomjs
     command: --webdriver=4444 --ignore-ssl-errors=true --load-images=false --cookies-file=/tmp/cookies
-    container_name: phantomjs
+    container_name: gsm_phantomjs
     #environment:
     #  QT_QPA_PLATFORM: offscreen
 

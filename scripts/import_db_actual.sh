@@ -1,5 +1,5 @@
 #!/bin/sh
-# docker exec -i -t gsmdocker_publisher_db bash /root/scripts/import_db_actual.sh
+# docker exec -i -t gsm_publisher_db bash /root/scripts/import_db_actual.sh
 remoteDbName="dev001"
 remoteDbHost="sdsp-vpc-db-001.cyquzquo3ds0.us-east-1.rds.amazonaws.com"
 remoteDbUser="dev001"
