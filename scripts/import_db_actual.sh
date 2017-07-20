@@ -11,7 +11,7 @@ localDbUser="root"
 localDbPass="1"
 
 
-echo "Making a dump of a database (this operation may take several minutes)";
+echo "Loading db dump ...";
 mysqldump -h $remoteDbHost -u $remoteDbUser -p$remoteDbPass $remoteDbName |
 sed -e 's/DEFINER[ ]*=[ ]*[^*]*\*/\*/' |
 sed -e 's/ROW_FORMAT=COMPACT/ROW_FORMAT=DYNAMIC/' |
