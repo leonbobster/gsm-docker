@@ -10,18 +10,10 @@ localDbHost="localhost"
 localDbUser="root"
 localDbPass="1"
 
-rawDump="/root/dump_raw.sql"
-fixedDump="/root/fixed_dump.sql"
 
 echo "Making a dump of a database (this operation may take several minutes)";
-mysqldump -h $remoteDbHost -u $remoteDbUser -p$remoteDbPass $remoteDbName > $rawDump
-
-echo "Remove DEFINER, set ROW_FORMAT=DYNAMIC"
-cat $rawDump |
+mysqldump -h $remoteDbHost -u $remoteDbUser -p$remoteDbPass $remoteDbName |
 sed -e 's/DEFINER[ ]*=[ ]*[^*]*\*/\*/' |
 sed -e 's/ROW_FORMAT=COMPACT/ROW_FORMAT=DYNAMIC/' |
-sed -e '/ROW_FORMAT/!s/^) ENGINE=InnoDB/) ENGINE=InnoDB ROW_FORMAT=DYNAMIC/' > $fixedDump
-
-echo "Uploading database to local host"
-mysql -h $localDbHost -u $localDbUser -p$localDbPass $localDbName < $fixedDump
-
+sed -e '/ROW_FORMAT/!s/^) ENGINE=InnoDB/) ENGINE=InnoDB ROW_FORMAT=DYNAMIC/' |
+mysql -h $localDbHost -u $localDbUser -p$localDbPass $localDbName
