@@ -70,6 +70,7 @@ services:
     volumes:
       - ./db/publisher/data:/var/lib/mysql
       - ./db/publisher/config:/etc/mysql/conf.d
+      - ./scripts:/root/scripts
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 1
