@@ -1,0 +1,10 @@
+# load dump
+docker exec -i gsmdocker_publisher_db_1 mysql -uroot -p1 publisher < publisher.sql
+
+# run tests
+docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run unit
+docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run functional
+docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run acceptance
+
+# access container
+docker exec -it gsmdocker_publisher_1 bash

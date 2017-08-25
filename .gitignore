@@ -1,4 +1,5 @@
 .DS_Store
+db/as/data/
 db/cp/data/
 db/publisher/data/
 *.swp
