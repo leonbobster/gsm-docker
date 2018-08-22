@@ -1,11 +1,11 @@
 FROM php:7.0-apache
 RUN apt-get update && apt-get install -y \
-    libpng12-dev \
+    libpng-dev \
     libjpeg62-turbo-dev
 
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install zip
-RUN docker-php-ext-install pdo pdo_mysql 
+RUN docker-php-ext-install pdo pdo_mysql
 
 # xdebug
 RUN pecl install xdebug-2.5.5
