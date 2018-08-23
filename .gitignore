@@ -1,6 +1,6 @@
 .DS_Store
-db/as/data/
 db/cp/data/
+db/autosds/data/
 db/publisher/data/
 *.swp
 docker-compose.yml

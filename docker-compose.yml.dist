@@ -57,6 +57,17 @@ services:
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
 
+  autosds:
+    image: leonbobster/php56-apache
+    ports:
+      - "8082:80"
+      #- "9001:9000"
+    volumes:
+      - ${AUTOSDS_PATH}:/var/www/html
+    env_file: .env
+    #environment:
+    #  XDEBUG_CONFIG: remote_host=${HOST_IP}
+
   publisher_db:
     image: mysql:5.7
     container_name: sdsp-db
@@ -83,6 +94,19 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1
       MYSQL_DATABASE: cp_db
+
+  autosds_db:
+    image: mysql:5.7
+    container_name: autosds-db
+    ports:
+      - "3309:3306"
+    volumes:
+      - C:\Users\leo\projects\gsm-docker\db\autosds\data:/var/lib/mysql
+      - C:\Users\leo\projects\gsm-docker\db\autosds\config:/etc/mysql/conf.d
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: autosds_db
 
   phantomjs:
     image: wernight/phantomjs:2
