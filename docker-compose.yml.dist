@@ -109,3 +109,10 @@ services:
     volumes:
       - ${PDFGEN_PATH}:/app
 
+  cp-cli:
+    image: leonbobster/php56-cli
+    container_name: cp-cli
+    working_dir: /app
+    volumes:
+      - ${CP_PATH}:/app
+

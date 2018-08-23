@@ -1,3 +1,8 @@
+# composer install
+docker-compose run autosds-cli composer install
+docker-compose run pdfgen-cli composer install
+docker-compose run sdsp-cli composer install
+
 # load dump
 docker exec -i gsmdocker_publisher_db_1 mysql -uroot -p1 publisher < publisher.sql
 
