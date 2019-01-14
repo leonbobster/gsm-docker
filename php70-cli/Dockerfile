@@ -1,6 +1,6 @@
 FROM php:7.0-cli
 
-RUN apt-get update && apt-get install -y zlib1g-dev libmcrypt-dev wget
+RUN apt-get update && apt-get install -y zlib1g-dev libmcrypt-dev wget git
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install mcrypt
