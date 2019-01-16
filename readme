@@ -3,13 +3,17 @@ docker-compose run autosds-cli composer install
 docker-compose run pdfgen-cli composer install
 docker-compose run sdsp-cli composer install
 
-# load dump
-docker exec -i gsmdocker_publisher_db_1 mysql -uroot -p1 publisher < publisher.sql
+# load dump 
+# copy sql to any accessible from the container dir, for example: ./db/pdfgen/config
+docker exec -i pdfgen-db sh -c "mysql -uroot -p1 pdfgen_db < /etc/mysql/conf.d/dump.sql"
 
 # run tests
 docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run unit
 docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run functional
 docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run acceptance
+
+# run single test
+docker exec -i  gsm-docker_pdfgen_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run functional TextCest
 
 # access container
 docker exec -it gsmdocker_publisher_1 bash
