@@ -17,7 +17,7 @@ echo "xdebug.var_display_max_data = 1024" >>   ${XDEBUG_INI} && \
 echo "xdebug.default_enable = 1" >>   ${XDEBUG_INI} && \
 echo "xdebug.remote_enable = 1" >>   ${XDEBUG_INI} && \
 echo "xdebug.remote_autostart = 0" >>   ${XDEBUG_INI} && \
-echo "xdebug.remote_connect_back = 0" >> ${XDEBUG_INI} && \
+echo "xdebug.remote_connect_back = 1" >> ${XDEBUG_INI} && \
 echo "xdebug.profiler_enable = 0" >>   ${XDEBUG_INI}
 RUN docker-php-ext-enable xdebug
 
