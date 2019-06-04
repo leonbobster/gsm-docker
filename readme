@@ -12,8 +12,8 @@ docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/w
 docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run functional
 docker exec -i gsmdocker_publisher_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run acceptance
 
-# run single test
-docker exec -i  gsm-docker_pdfgen_1 /var/www/html/vendor/bin/codecept -c /var/www/html/tests/ run functional TextCest
+# run a single test
+docker-compose run --rm -e YII_ENV=test pdfgen-cli ./vendor/bin/codecept -c tests/codeception.yml run functional tsds/GHSEuropeanUnionSDS
 
 # access container
 docker exec -it gsmdocker_publisher_1 bash

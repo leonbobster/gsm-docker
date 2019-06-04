@@ -23,6 +23,7 @@ services:
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
+      YII_ENV: dev
 
   publisher_test:
     image: leonbobster/php70-apache
@@ -44,6 +45,7 @@ services:
     env_file: .env
     environment:
       XDEBUG_CONFIG: remote_host=${HOST_IP}
+      YII_ENV: dev
 
   cp:
     image: leonbobster/php56-apache

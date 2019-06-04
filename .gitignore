@@ -3,6 +3,7 @@ db/cp/data/
 db/autosds/data/
 db/publisher/data/
 db/pdfgen/data/
+db/pdfgen/logs/
 *.swp
 docker-compose.yml
 .env
