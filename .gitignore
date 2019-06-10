@@ -2,6 +2,7 @@
 db/cp/data/
 db/autosds/data/
 db/publisher/data/
+db/sdsp_test/data/
 db/pdfgen/data/
 db/pdfgen/logs/
 *.swp

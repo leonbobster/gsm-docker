@@ -84,6 +84,20 @@ services:
       MYSQL_ROOT_PASSWORD: 1
       MYSQL_DATABASE: publisher
 
+  publisher_test_db:
+    image: mysql:5.7
+    container_name: sdsp-test-db
+    ports:
+      - "3316:3306"
+    volumes:
+      - C:\Users\leo\projects\gsm-docker\db\sdsp_test\data:/var/lib/mysql
+      - C:\Users\leo\projects\gsm-docker\db\publisher\config:/etc/mysql/conf.d
+      - C:\Users\leo\projects\gsm-docker\scripts:/root/scripts
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: sdsp_test
+
   cp_db:
     image: mysql:5.7
     container_name: cp-db
@@ -127,6 +141,11 @@ services:
     working_dir: /app
     volumes:
       - ${PUBLISHER_PATH}:/app
+    environment:
+      XDEBUG_CONFIG: remote_host=${HOST_IP} remote_enable=1
+      # phpstorm configured server name
+      PHP_IDE_CONFIG: serverName=sdsp-docker
+      YII_ENV: dev
 
   pdfgen-cli:
     image: leonbobster/php70-cli
